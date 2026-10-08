@@ -1,98 +1,58 @@
-# vinext-starter
+# Loops AI — Food Rescue Platform
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+**Turning surplus food into affordable meals while reducing food waste.**
 
-## Prerequisites
+**1st Place - UC Berkeley AI Techathon 2026**
 
-- Node.js `>=22.13.0`
+## About the Project
 
-## Quick Start
+Loops AI is a food-rescue platform designed to connect local grocery stores, bakeries, and other food businesses with consumers seeking affordable food.
 
-```bash
-npm install
-npm run dev
-npm run build
-```
+Unlike traditional surplus-food marketplaces that primarily offer surprise bags, Loops focuses on creating meal-oriented bundles, helping customers find food they can actually use while enabling businesses to reduce waste.
 
-This starter does not use `wrangler.jsonc`.
+## The Problem
 
-## Included Shape
+Every day, businesses discard edible food because of overstocking, cosmetic imperfections, and approaching expiration dates. Meanwhile, many families struggle with rising grocery prices.
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+Loops aims to bridge this gap by making surplus food more accessible, affordable, and convenient.
 
-## Workspace Auth Headers
+## Key Features
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+- **Surplus Food Listings:** Businesses can list available food with prices, quantities, and pickup windows.
+- **Meal-Oriented Bundles:** Organizes surplus ingredients into practical bundles rather than random assortments.
+- **AI-Assisted Food Scanning (Prototype):** Explores automated food identification and listing assistance. The current scanner uses demonstration logic rather than a fully integrated computer-vision model.
+- **Pickup Coordination:** Helps connect customers with businesses offering surplus food.
+- **Food Rescue Focus:** Encourages sustainable consumption and reduces unnecessary food waste.
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+## Tech Stack
 
-Treat the full name as optional and fall back to email when it is absent:
+- **Frontend:** React, Next.js, TypeScript
+- **Styling:** Tailwind CSS
+- **Additional Technologies:** Cloudflare-compatible tooling and Drizzle ORM
 
-```tsx
-import { headers } from "next/headers";
+## Recognition
 
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
+**UC Berkeley AI Techathon — First Place (2026)**
 
-  const displayName = fullName ?? email;
-  // ...
-}
-```
+Developed during a collaborative hackathon focused on applying emerging technologies to real-world problems.
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+## Current Status
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+Loops is an evolving prototype. Current priorities include improving AI-assisted listing functionality, gathering feedback from local businesses, and exploring partnerships with food-rescue organizations.
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+## Future Goals
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+- Integrate functional AI-based food recognition.
+- Improve meal-bundle recommendations.
+- Expand partnerships with local bakeries and grocery stores.
+- Explore coordination between surplus-food suppliers and community organizations.
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+## Project Team
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+Developed collaboratively as a hackathon project.
 
-## Useful Commands
+## Author
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+**Sophia Hao**
 
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+Interested in artificial intelligence, entrepreneurship, and using technology to address social and environmental challenges.
